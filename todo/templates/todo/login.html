@@ -1,0 +1,44 @@
+{% extends 'todo/main.html' %}
+{% load static %}
+
+{% block title %} Login {% endblock title %}
+
+{% block content %}
+
+    <div class="row mt-4">
+        <div class="col-sm-3 col-md-3 col-lg-3">
+
+        </div>
+
+        <div class="col-sm-6 col-md-6 col-lg-6">
+            <div class="card">
+                <div class="card card-header">
+                    <h3 class="text-center">Login</h3>
+                </div>
+
+                <div class="card card-body p-4">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                            <p>Username: {{ login_form.username }}</p>
+                            <p>Password:{{ login_form.password }}</p>
+                        <p class="text text-center"><input type="submit" class="btn btn-md btn-primary" value="login" name="login"></p>
+                        
+                        <p class="text text-center">
+                            Don't have an account?<a href="{% url 'todo:register_page' %}" class="btn btn-sm btn-warning">Register</a>
+                        </p>
+                    </form>
+                
+
+                    {% for msg in messages %}
+                        {{ msg }}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3 col-md-3 col-lg-3">
+            
+        </div>
+    </div>
+
+{% endblock content %}

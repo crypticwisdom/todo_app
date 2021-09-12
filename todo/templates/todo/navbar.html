@@ -1,0 +1,31 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#" style="font-family: cursive;">
+      {{ request.user }}'s <i class="bg-light text-dark">Todo-List</i> 
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'todo:index' %}">Home</a>
+        </li>
+      </ul>
+      
+        
+<!--will show when logged in -->
+{% if request.user.is_authenticated %}
+        <p  class=" text-light d-flex">
+            <a href="{% url 'todo:logout_handler' %}" class="btn btn-md btn-danger me-4">Logout</a>
+        </p>
+
+{% else %}
+<p  class="d-flex">
+    <a href="{% url 'todo:login_page' %}" class="btn btn-md btn-primary me-4">Log In</a>
+</p>
+{% endif %}
+    </div>
+  </div>
+</nav>

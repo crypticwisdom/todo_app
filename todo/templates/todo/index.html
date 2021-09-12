@@ -1,0 +1,86 @@
+{% extends 'todo/main.html' %}
+{% load static %}
+
+{% block title %} Home {% endblock title %}
+
+{% block content %}
+
+{% if not request.user.is_authenticated %}
+{% endif %}
+<div class="row mt-4">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-sm-2 col-md-2 col-lg-2">
+
+                </div>
+
+                <div class="col-sm-8 col-md-8 col-lg-8">
+                    <h3 class="text text-center">Create Task</h3>
+                    <form action="" method="post">
+                        <div class="row p-4">
+                        
+                            {% csrf_token %}
+
+                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                <input type="text"  class="form-control" placeholder="Enter what to do ..." name="text" id="">
+                            </div>
+    
+                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                <input type="date" class="form-control" placeholder="year-month-day" name="date" id="">
+                            </div>
+
+                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                <input type="email" class="form-control"  name="email" id="">
+                            </div>
+    
+                            
+                                <button type="submit" name="create" class="btn btn-success mt-3 form-control">Create</button>
+                            
+
+                       
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-sm-2 col-md-2 col-lg-2">
+                    
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Task To-Do</th>
+                        <th>When To-Do</th>
+                        <th>Email</th>
+                        <th></th>
+                        <td></td>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+                   {% for task in  tasks %}
+                    <tr>
+                        <td>{{ task.title }}</td>
+                        <td>{{ task.when_to_do }}</td>
+                        <td>{{ task.email }}</td>
+                        <td>
+                            <a href="{% url 'todo:login_page' %}" class="btn btn-sm btn-primary">Login to Edit</a>
+                        </td>
+
+                        
+                    </tr>
+                   {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock content %}

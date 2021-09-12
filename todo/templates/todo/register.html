@@ -1,0 +1,43 @@
+{% extends 'todo/main.html' %}
+{% load static %}
+
+{% block title %} Register {% endblock title %}
+
+{% block content %}
+
+    <div class="row mt-4">
+        <div class="col-sm-3 col-md-3 col-lg-3">
+
+        </div>
+
+        <div class="col-sm-6 col-md-6 col-lg-6">
+            <div class="card">
+                <div class="card card-header">
+                    <h3 class="text-center">Register</h3>
+                </div>
+
+                <div class="card card-body p-4">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                            <p>Username: {{ register_form.username }}</p>
+                            <p>Email: {{ register_form.email }}</p>
+                            <p>Password:{{ register_form.password1 }}</p>
+                            <p>Confirm Password:{{ register_form.password2 }}</p>
+                        <p class="text text-center"><input type="submit" class="btn btn-md btn-primary" value="Register" name="register"></p>
+                        
+                        <p class="text-center">
+                            Already have an account ? <a href="{% url 'todo:login_page' %}" class="btn btn-sm btn-warning">Login</a>
+                        </p>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3 col-md-3 col-lg-3">
+            
+        </div>
+    </div>
+
+{% endblock content %}
