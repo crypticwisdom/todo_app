@@ -12,9 +12,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'v^8%n_d@a#9fzu4&lkgc+i!3lj)efkuwws4h8bw)-0fsnhj6o9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['schedu-list.herokuapp.com']
+ALLOWED_HOSTS = ['schedu-list.herokuapp.com', 'www.schdule-list.herokuapp.com', 'localhost']
 
 
 # Application definition
