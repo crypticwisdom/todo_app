@@ -27,10 +27,10 @@
                             Don't have an account?<a href="{% url 'todo:register_page' %}" class="btn btn-sm btn-warning">Register</a>
                         </p>
                     </form>
-                
+                    
 
                     {% for msg in messages %}
-                        <p class="text-danger">{{ msg }}</p>
+                        <p class="text-sucessfully">{{ msg }}</p>
                     {% endfor %}
                 </div>
             </div>

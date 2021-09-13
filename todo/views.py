@@ -17,6 +17,7 @@ from django.contrib import messages
 def index(request):
     if request.user.is_authenticated:
         return redirect(reverse('todo:user_page', args=(request.user.id,)))
+    
     tasks = None
     obj_list = None
     
@@ -89,6 +90,7 @@ def login_page(request):
                     # print(task_object)
                     task_object.user_id = user_obj.id
                     task_object.save()
+            
             return HttpResponseRedirect(reverse('todo:user_page', args=(user_obj.id,)))
 
             # return redirect(reverse('todo:index'))
@@ -132,14 +134,16 @@ def register_page(request):
                     # print(task_object)
                     task_object.user_id = this_user.id
                     task_object.save()
-                return redirect(reverse('todo:login_page'))
+                    messages.success(request, f"Successfully created {username}, Enter credentals to Login.")
+            messages.success(request, f"Successfully created {username}, Enter credentals to Login.")    
+            return redirect(reverse('todo:login_page'))
                     
 
             # return redirect(reverse('todo:login_page'))
                 
                 
             # print(username, request.user.id)
-            messages.info(request, f"Successfully created {username}, Enter credentals to Login.")
+            
             # return redirect(reverse('todo:login_page'))
     return render(request, 'todo/register.html', {
 
