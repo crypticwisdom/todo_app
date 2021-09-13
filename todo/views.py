@@ -25,21 +25,29 @@ def index(request):
     task_form = TaskForm()
     if request.method == 'POST':
         # print(request.POST)
-        title = request.POST['text']
-        date = request.POST['date']
-        email = request.POST['email']
+        try:
+
+            title = request.POST['text']
+            date = request.POST['date']
+            email = request.POST['email']
+            print(date)
+            task_obj = Task(title=title, when_to_do=date, email=email)
+            for t in Task.objects.all():
+                if title == t.title and (email == t.email or t.email == '' or t.email == None):
+                    return redirect(reverse('todo:index'))
+            task_obj.save()
+        except:
+            messages.error(request, f"There was error in submitting your task, enter date field.")
+            return redirect(reverse('todo:index'))
+        else:
+
         
         # check if this data already exist for this email
-         
-        task_obj = Task(title=title, when_to_do=date, email=email)
-        for t in Task.objects.all():
-            if title == t.title and (email == t.email or t.email == '' or t.email == None):
-                return redirect(reverse('todo:index'))
-        task_obj.save()
+            
 
-        tasks = Task.objects.all().filter(email=email)[::-1]
-        obj_list = tasks[:5]
-    # if request.POST['logged_create']:
+            tasks = Task.objects.all().filter(email=email)[::-1]
+            obj_list = tasks[:5]
+        # if request.POST['logged_create']:
     #     print('sdsd')
     #     print(request.user.is_authenticated)
     return render(request, 'todo/index.html', {
@@ -131,7 +139,7 @@ def register_page(request):
                 
                 
             # print(username, request.user.id)
-            # messages.info(request, f"Successfully created {username}, Enter credentals to Login.")
+            messages.info(request, f"Successfully created {username}, Enter credentals to Login.")
             # return redirect(reverse('todo:login_page'))
     return render(request, 'todo/register.html', {
 
