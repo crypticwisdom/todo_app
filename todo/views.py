@@ -155,14 +155,18 @@ def user_page(request, pk):
 
     if request.method == "POST":
         # print(request.POST, request.POST['text'])
-        title = request.POST['text']
-        date = request.POST['date']
-        email = user_obj.email
+        try:
+            title = request.POST['text']
+            date = request.POST['date']
+            email = user_obj.email
 
-        obj = Task(user=request.user, title=title, when_to_do=date, email=email)
-        obj.save()
-        
-        return redirect(reverse('todo:user_page', args=(pk,)))
+            obj = Task(user=request.user, title=title, when_to_do=date, email=email)
+            obj.save()
+        except:
+            messages.info(request, f"Please fill the fields")
+            return redirect(reverse('todo:user_page', args=(pk,)))
+        else:
+            return redirect(reverse('todo:user_page', args=(pk,)))
 
 
     task = user_obj.task_set.all().order_by('-created')
