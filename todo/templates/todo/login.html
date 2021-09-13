@@ -28,7 +28,9 @@
                         </p>
                     </form>
                     
-
+                    {% if login_form.errors %}
+                        {{ login_form.errors }}
+                    {% endif %}
                     {% for msg in messages %}
                         <p class="text-sucessfully">{{ msg }}</p>
                     {% endfor %}

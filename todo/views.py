@@ -63,25 +63,31 @@ def login_page(request):
     login_form = LoginForm()
     # print(LoginForm(request.POST), request.POST)
     if request.method == 'POST':
-        login_form = RegistrationForm(request.POST)
+        try:
+            login_form = RegistrationForm(request.POST)
 
-        username = request.POST['username']
-        password = request.POST['password']
-        
-        user = authenticate(request, username=username, password=password)
-        # print(user.username, user.email, user.password)
+            username = request.POST['username']
+            password = request.POST['password']
+            
+            user = authenticate(request, username=username, password=password)
+            # print(user.username, user.email, user.password)
+            print(user.id)
+            if user is not None:
+                login(request, user)
 
-        if user is not None:
-            login(request, user)
-            # print(request.user)
+                
+        except:
+            messages.info(request, f"Please fill the form")
+            return HttpResponseRedirect(reverse('todo:login_page'))
+        else:
+                # print(request.user)
 
             #get user from User model 
-            user_obj = User.objects.get(username=user)
+            user_obj = User.objects.get(username=user.id)
             # print(user_obj.email)
- 
+
 
             all_task = Task.objects.all()
-            
             for task in all_task:
                 if task.user_id == None and task.email == user_obj.email:
                     # print(task.id, task.user_id, user_obj.id)
@@ -90,7 +96,6 @@ def login_page(request):
                     # print(task_object)
                     task_object.user_id = user_obj.id
                     task_object.save()
-            
             return HttpResponseRedirect(reverse('todo:user_page', args=(user_obj.id,)))
 
             # return redirect(reverse('todo:index'))
